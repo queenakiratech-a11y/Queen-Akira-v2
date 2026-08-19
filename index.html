@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUEEN AKIRA V2 — Lier le bot</title>
+    <meta name="description" content="Lie ton numéro WhatsApp au bot QUEEN AKIRA V2 directement, sans passer par Telegram.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="crown-field" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-crown">♛</span>
+        <span class="brand-name">QUEEN AKIRA <span class="v2">V2</span></span>
+      </div>
+      <div class="topbar-right">
+        <a class="topbar-link" href="https://whatsapp.com/channel/0029VbCdBgw17EmtjDmLxU3V" target="_blank" rel="noopener">Canal</a>
+        <div class="lang-switch" role="group" aria-label="Langue">
+          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="true">FR</button>
+          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Aucun Telegram requis</p>
+        <h1 data-i18n="hero.title">Your queen.<br>Your rules.</h1>
+        <p class="lede" data-i18n="hero.lede">
+          Entre ton numéro WhatsApp, reçois un code de pairing, colle-le dans
+          <strong data-i18n="hero.ledeStrong">Appareils liés</strong>.
+          Moins d'une minute — aucun compte Telegram nécessaire.
+        </p>
+      </section>
+
+      <section class="panel" id="pairPanel">
+        <!-- STEP 1 : FORM -->
+        <div class="step" id="step-form" data-active="true">
+          <div class="step-label" data-i18n="step1.label">Étape 1</div>
+          <h2 data-i18n="step1.title">Entre ton numéro WhatsApp</h2>
+          <p class="hint" data-i18n="step1.hint">Indicatif pays inclus, sans « + » et sans le « 0 » initial. Exemple : <span class="mono">50937123456</span></p>
+          <form id="pairForm" autocomplete="off">
+            <div class="field">
+              <label for="phone" data-i18n="step1.fieldLabel">Numéro WhatsApp</label>
+              <input type="tel" id="phone" name="phone" inputmode="numeric" placeholder="50937123456" maxlength="15" required>
+            </div>
+            <button type="submit" class="btn-primary" id="submitBtn">
+              <span class="btn-label" data-i18n="step1.button">Générer le code</span>
+              <span class="btn-spinner" hidden></span>
+            </button>
+            <p class="error" id="formError" hidden></p>
+          </form>
+        </div>
+
+        <!-- STEP 2 : CODE -->
+        <div class="step" id="step-code" hidden>
+          <div class="step-label" data-i18n="step2.label">Étape 2</div>
+          <h2 data-i18n="step2.title">Colle ce code dans WhatsApp</h2>
+          <p class="hint" data-i18n="step2.hint">Ouvre <strong>WhatsApp → Paramètres → Appareils liés → Lier un appareil</strong>, puis choisis « Lier avec le numéro de téléphone ».</p>
+          <div class="code-display" id="codeDisplay" aria-live="polite">
+            <span class="code-text" id="codeText">— — — —</span>
+            <button class="copy-btn" id="copyBtn" type="button" data-i18n="step2.copy" aria-label="Copier le code">Copier</button>
+          </div>
+          <p class="expiry" id="expiryNote" data-i18n="step2.expiry">Ce code expire rapidement — redemande-en un s'il ne fonctionne plus.</p>
+          <button class="btn-secondary" id="retryBtn" type="button" data-i18n="step2.retry">Demander un autre code</button>
+        </div>
+
+        <!-- STEP 3 : ERROR STATE (server) -->
+        <div class="step" id="step-blocked" hidden>
+          <div class="step-label" data-i18n="blocked.label">Indisponible</div>
+          <h2 id="blockedTitle" data-i18n="blocked.title">Le serveur est occupé</h2>
+          <p class="hint" id="blockedMsg" data-i18n="blocked.msg">Réessaie dans un instant.</p>
+          <button class="btn-secondary" id="backBtn" type="button" data-i18n="blocked.back">Retour</button>
+        </div>
+      </section>
+
+      <section class="howitworks">
+        <h3 data-i18n="how.title">Comment ça marche</h3>
+        <div class="rows">
+          <div class="row">
+            <span class="row-num">I</span>
+            <p data-i18n="how.step1">Tu entres ton numéro, le site demande un code directement au bot.</p>
+          </div>
+          <div class="row">
+            <span class="row-num">II</span>
+            <p data-i18n="how.step2">WhatsApp te donne un code à 8 caractères pour confirmer que c'est toi.</p>
+          </div>
+          <div class="row">
+            <span class="row-num">III</span>
+            <p data-i18n="how.step3">Colle le code dans Appareils liés — le bot est actif sur ton numéro.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="social">
+        <h3 data-i18n="social.title">Nous retrouver ailleurs</h3>
+        <div class="social-grid">
+          <a class="social-card" href="https://whatsapp.com/channel/0029VbCdBgw17EmtjDmLxU3V" target="_blank" rel="noopener">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.9c0 4.7-3.9 8.5-8.6 8.5-1.5 0-2.9-.4-4.2-1.1L3 20.5l1.2-4.5a8.4 8.4 0 0 1-1.3-4.5c0-4.7 3.9-8.5 8.6-8.5s8.6 3.8 8.6 8.5Z"/></svg>
+            <span data-i18n="social.whatsapp">Canal WhatsApp</span>
+          </a>
+          <a class="social-card" href="https://chat.whatsapp.com/JbAPXAao1MTCuTGPpnGGDP?s=cl&p=a&ilr=4" target="_blank" rel="noopener">
+            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M2.5 19.5c0-3.3 2.9-5.5 6.5-5.5s6.5 2.2 6.5 5.5"/><circle cx="17" cy="8.5" r="2.4"/><path d="M16 14.3c2.9.3 5.2 2.3 5.2 5"/></svg>
+            <span data-i18n="social.group">Groupe WhatsApp</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p><span data-i18n="footer.credit">QUEEN AKIRA V2 — powered by</span>
+      <span class="signature">AKIRA TECH</span></p>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
