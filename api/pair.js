@@ -3,7 +3,7 @@
 // Backend la deja gen CORS aktive, men nou pase pa isit pou evite
 // mixed-content block yo lè sit la sèvi ak HTTPS epi backend la HTTP.
 
-const BACKEND_URL = 'http://209.38.42.10:19423/api/pair';
+const BACKEND_URL = 'http://169.58.37.185:25597/api/pair';
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
